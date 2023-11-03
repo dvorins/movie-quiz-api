@@ -29,16 +29,24 @@ export default function Home() {
 
       <div className={styles.grid}>
         <div className={styles.card}>
-          <img src="https://via.placeholder.com/150" alt="Poster 1" />
+          <a href="#" onClick="myFunction()">
+            <img src="https://via.placeholder.com/150" alt="Poster 1" />
+          </a>
         </div>
         <div className={styles.card}>
-          <img src="https://via.placeholder.com/150" alt="Poster 2" />
+          <a href="#" onClick="myFunction()">
+            <img src="https://via.placeholder.com/150" alt="Poster 2" />
+          </a>
         </div>
         <div className={styles.card}>
-          <img src="https://via.placeholder.com/150" alt="Poster 3" />
+          <a href="#" onClick="myFunction()">
+            <img src="https://via.placeholder.com/150" alt="Poster 3" />
+          </a>
         </div>
         <div className={styles.card}>
-          <img src="https://via.placeholder.com/150" alt="Poster 4" />
+          <a href="#" onClick="myFunction()">
+            <img src="https://via.placeholder.com/150" alt="Poster 4" />
+          </a>
         </div>
       </div>
 
@@ -46,7 +54,7 @@ export default function Home() {
         <div className={styles.card}>
           Sound 1
         </div>
-        <div className={styles.card}>
+        {/* <div className={styles.card}>
           Sound 2
         </div>
         <div className={styles.card}>
@@ -54,7 +62,7 @@ export default function Home() {
         </div>
         <div className={styles.card}>
           Sound 4
-        </div>
+        </div> */}
       </div>
     </main>
   )
