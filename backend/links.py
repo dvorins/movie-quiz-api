@@ -45,6 +45,9 @@ def urls_call():
         soundtrack_url = "https://www.youtube.com/watch?v=" + youtube_response["items"][random.randint(0, 4)]["id"]["videoId"]
         movie_list.append({"Name": movie_name, "ImageURL": image_url, "SoundtrackURL:": soundtrack_url})
     
+    file = open("urls.json", "w")
+    file.write(json.dumps(movie_list))
+    file.close()
     return json.dumps(movie_list)
 
 urls_call()
