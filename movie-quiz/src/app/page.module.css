@@ -1,13 +1,92 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+.header {
+  color: beige;
+  background-color: #001F3F;
+  text-align: center;
+  padding: 3.75vh;
 }
 
-.description {
+.nav {
+  background-color: #DAA520;
+  padding: 1.75vh;
+}
+
+.nav ul{
+  text-align: center;
+}
+
+.nav li {
+  display: inline;
+  margin: 3vh;
+  padding: 2%;
+}
+
+.nav button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #e67e22;
+  color: #001F3F;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.main {
+  background-color: #A9A9A9;
+  height: 80vh;
+  padding-top: 3vh;
+}
+
+.playerScores li {
+  list-style: none;
+  margin-left: 3vh;
+  margin-bottom: 1.25vh;
+}
+
+.moviePosters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5vh;
+  margin-top: 3vh;
+}
+
+.moviePosters img {
+  width: 100%; 
+  height: auto; 
+}
+
+.moviePosters a {
+  display: inline-block;
+  box-sizing: border-box;
+  width: calc(20% - 5px);
+  height: auto;
+}
+
+.playSound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 4%;
+}
+
+.playSound button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+
+/* .description {
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
@@ -110,7 +189,7 @@
   position: relative;
 }
 /* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
+/* @media (hover: hover) and (pointer: fine) {
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);
     border: 1px solid rgba(var(--card-border-rgb), 0.15);
@@ -125,7 +204,7 @@
   .card:hover span {
     transform: none;
   }
-}
+} */
 
 /* Mobile */
 @media (max-width: 700px) {
