@@ -1,9 +1,38 @@
+'use client'
+
 import Image from 'next/image'
+import React, {useState, useEffect} from 'react'
 import styles from './page.module.css'
 
 export default function Home() {
+  const [data, setData] = useState([{}])
+  useEffect(() => {
+      fetch("http://localhost:5001/members").then(
+          res => res.json()
+      ).then(
+          data => {
+              setData(data)
+              console.log(data)
+          }
+      )
+  }, [] )
+
   return (
+    
+
     <div>
+      <div>
+      {(data && data.urls) ? (
+        <div>
+          {data.urls.map((url, index) => (
+            <p key={index}>{url}</p>
+          ))}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+    
       <div className={styles.header}>
         <h1>Movie Quiz</h1>
       </div>
@@ -45,6 +74,11 @@ export default function Home() {
     </div>
   )
 }
+
+
+
+
+
 {/* <div id="player-scores">
         <li><p>Current Score</p></li>
       </div>

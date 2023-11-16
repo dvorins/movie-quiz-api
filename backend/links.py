@@ -1,12 +1,12 @@
 import os
 import requests
-from dotenv import load_dotenv
+'''from dotenv import load_dotenv'''
 import random
 import json
 
 def urls_call():
     # loads envs
-    load_dotenv()
+    ''' load_dotenv()'''
 
     # env declarations
     movie_api_key = os.getenv('movie_api_key')
@@ -49,4 +49,3 @@ def urls_call():
     file.close()
     return json.dumps(movie_list)
 
-urls_call()
