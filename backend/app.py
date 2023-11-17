@@ -7,6 +7,7 @@ import links
 import io
 import os
 import uuid
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -15,8 +16,8 @@ app.debug = True
 app._static_folder = os.path.abspath("movie-quiz-api/movie-quiz/")
 
 
-@app.route("/members")
-def members():
+@app.route("/test")
+def test():
     return jsonify({
         "urls": [
             "https://www.example.com/page1",
@@ -27,8 +28,19 @@ def members():
         ]
     })
 
+@app.route("/movies")
+def movies():
+    try:
+        with open("urls.json", "r") as file:
+            data = json.load(file)
+        return jsonify(data)
+    except FileNotFoundError:
+        return jsonify({"error": "urls.json not found"}), 404
+    except json.JSONDecodeError:
+        return jsonify({"error": "Error decoding JSON from urls.json"}), 500
+
 @app.route("/")
-def test():
+def test1():
     return("test")
 
 

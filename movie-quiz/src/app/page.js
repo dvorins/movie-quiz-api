@@ -7,7 +7,7 @@ import styles from './page.module.css'
 export default function Home() {
   const [data, setData] = useState([{}])
   useEffect(() => {
-      fetch("http://localhost:5001/members").then(
+      fetch("http://localhost:5001/movies").then(
           res => res.json()
       ).then(
           data => {
@@ -19,20 +19,8 @@ export default function Home() {
 
   return (
     
-
     <div>
-      <div>
-      {(data && data.urls) ? (
-        <div>
-          {data.urls.map((url, index) => (
-            <p key={index}>{url}</p>
-          ))}
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-    
+
       <div className={styles.header}>
         <h1>Movie Quiz</h1>
       </div>
@@ -53,18 +41,26 @@ export default function Home() {
         </div>
 
         <div className={styles.moviePosters}>
-          <a href="#" onClick="myFunction()">
-            <img src="https://via.placeholder.com/150" alt="Poster 1" />
-          </a>
-          <a href="#" onClick="myFunction()">
-            <img src="https://via.placeholder.com/150" alt="Poster 2" />
-          </a>
-          <a href="#" onClick="myFunction()">
-            <img src="https://via.placeholder.com/150" alt="Poster 3" />
-          </a>
-          <a href="#" onClick="myFunction()">
-            <img src="https://via.placeholder.com/150" alt="Poster 4" />
-          </a>
+        {data.slice(0, 1).map((movie, index) => (
+            <a key={index} href="#" onClick={() => myFunction()}>
+              <img src={movie.ImageURL} alt={`Poster ${index + 1}`} />
+            </a>
+          ))}
+          {data.slice(1, 2).map((movie, index) => (
+            <a key={index} href="#" onClick={() => myFunction()}>
+              <img src={movie.ImageURL} alt={`Poster ${index + 1}`} />
+            </a>
+          ))}
+          {data.slice(2, 3).map((movie, index) => (
+            <a key={index} href="#" onClick={() => myFunction()}>
+              <img src={movie.ImageURL} alt={`Poster ${index + 1}`} />
+            </a>
+          ))}
+          {data.slice(3, 4).map((movie, index) => (
+            <a key={index} href="#" onClick={() => myFunction()}>
+              <img src={movie.ImageURL} alt={`Poster ${index + 1}`} />
+            </a>
+          ))}
         </div>
 
         <div className={styles.playSound}>
