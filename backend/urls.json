@@ -2,46 +2,46 @@
     {
         "Name": "The Good, the Bad and the Ugly",
         "ImageURL": "https://image.tmdb.org/t/p/original/5w1p0WXnv6mnMqsvnZuFvJxqdtT.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=PYI09PMNazw"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=PYI09PMNazw"
     },
     {
         "Name": "The Godfather Part II",
         "ImageURL": "https://image.tmdb.org/t/p/original/lxw7SulvT2iPHXk9Cf0UVXCM01Q.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=R-bsuTT-tm8"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=R-bsuTT-tm8"
     },
     {
         "Name": "David Attenborough: A Life on Our Planet",
         "ImageURL": "https://image.tmdb.org/t/p/original/zSKwyUDKDHiFU5syTTvQRDcGBPS.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=IVsJE6MCA2I"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=IVsJE6MCA2I"
     },
     {
         "Name": "Your Name.",
         "ImageURL": "https://image.tmdb.org/t/p/original/eiZEiUOFLOB5fYHQ4JM9y8eR7Vv.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=TSUbPk6i13I"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=TSUbPk6i13I"
     },
     {
         "Name": "Forrest Gump",
         "ImageURL": "https://image.tmdb.org/t/p/original/pGZqc9jQ6F8klQZKm37NAAMH70o.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=441Vy8BBnIc"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=441Vy8BBnIc"
     },
     {
         "Name": "The Lord of the Rings: The Return of the King",
         "ImageURL": "https://image.tmdb.org/t/p/original/2kZ3HiVhwAz0TW4R1bm9JxiyQMJ.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=_SBQvd6vY9s"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=_SBQvd6vY9s"
     },
     {
         "Name": "The Shawshank Redemption",
         "ImageURL": "https://image.tmdb.org/t/p/original/qweD9Xgee42psLAiIxLPRU47URT.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=KCtRg5RpTz0"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=KCtRg5RpTz0"
     },
     {
         "Name": "Spirited Away",
         "ImageURL": "https://image.tmdb.org/t/p/original/azpS314YSawdlLpGH5pynXJEDor.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=PpewOC5bI1c"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=PpewOC5bI1c"
     },
     {
         "Name": "Pulp Fiction",
         "ImageURL": "https://image.tmdb.org/t/p/original/hNcQAuquJxTxl2fJFs1R42DrWcf.jpg",
-        "SoundtrackURL:": "https://www.youtube.com/watch?v=TnI7fcP_Pnk"
+        "SoundtrackURL": "https://www.youtube.com/watch?v=TnI7fcP_Pnk"
     }
 ]

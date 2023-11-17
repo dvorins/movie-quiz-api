@@ -42,7 +42,7 @@ def urls_call():
         image_url = "https://image.tmdb.org/t/p/original" + images["posters"][random.randint(0, len(images["posters"]) - 1)]["file_path"]
         youtube_response = requests.get(url=youtube_url, params = {"part": "snippet", "maxResults": "5", "order": "relevance", "q": movie_name + "Soundtrack", "type": "video", "key": youtube_api_key}).json()
         soundtrack_url = "https://www.youtube.com/watch?v=" + youtube_response["items"][random.randint(0, 4)]["id"]["videoId"]
-        movie_list.append({"Name": movie_name, "ImageURL": image_url, "SoundtrackURL:": soundtrack_url})
+        movie_list.append({"Name": movie_name, "ImageURL": image_url, "SoundtrackURL": soundtrack_url})
     
     file = open("urls.json", "w")
     file.write(json.dumps(movie_list))
