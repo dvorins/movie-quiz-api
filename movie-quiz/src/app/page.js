@@ -10,6 +10,9 @@ export default function Home() {
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [videoId, setVideoId] = useState('PYI09PMNazw'); // YouTube video ID
+  const [countdown, setCountdown] = useState(15);
+  const [currentPoster, setCurrentPoster] = useState("");
+  const [winningChoice, setWinningChoice] = useState(0);
 
 
   useEffect(() => {
@@ -32,6 +35,12 @@ export default function Home() {
     const iframe = document.getElementById('youtubePlayer');
     const videoId = extractVideoId(youtubeUrl);
     iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+
+    let countdownInterval = setInterval(() => {
+      setCountdown(prevCountdown => prevCountdown - 1);
+    }, 1000);
+
+
     setTimeout(() => {
       iframe.src = '';
     }, 15000);
@@ -48,11 +57,23 @@ export default function Home() {
   
 
   const posterClicked = (index) => {
+    const randomValue = Math.floor(Math.random() * 4); // Generates a random value between 0 and 3
+    setCurrentPoster(`Clicked on Poster ${index}`);
+    if (index === winningChoice) {
+      console.log('win');
+      setWinningChoice(randomValue);
+      setCurrentScore(currentScore+1);
+    } else {
+      setWinningChoice(randomValue);
+      if(currentScore > highScore) {
+        setHighScore(currentScore);
+      }
+      setCurrentScore(0);
+      console.log('lose')
+    }
     console.log(`Clicked on Poster ${startIndex + index + 1}`);
     setClickedIndex(startIndex + index);
     incrementIndex();
-    setCurrentScore(currentScore + 1)
-    // Update nextIndex to load the next movie in place of the clicked one
   };
 
   return (
@@ -76,6 +97,15 @@ export default function Home() {
           </ul>
         </div>
 
+        <div>
+          <p>{currentPoster}</p>
+        </div>
+
+        <div>
+          <p>WINNING CHOICE IS {winningChoice}</p>
+        </div>
+
+
         <div className={styles.moviePosters}>
           {/* Separate JavaScript objects for each poster */}
           <a href="#" onClick={() => posterClicked(0)}>
@@ -93,11 +123,17 @@ export default function Home() {
         </div>
 
 
-  <div className={styles.playSound}>
-        <button onClick={() =>  
-          soundtrackFunction(data[1].SoundtrackURL)}>Play Soundtrack</button>
+        <div className={styles.playSound}>
+        <button onClick={() => {
+          setCountdown(15);
+          soundtrackFunction(data[winningChoice].SoundtrackURL);
+        }}>Play Soundtrack</button>
       </div>
 
+
+          <div>
+            COUNTDOWN: {countdown} seconds
+          </div>
       {/* YouTube video player */}
       <iframe
         id="youtubePlayer"
