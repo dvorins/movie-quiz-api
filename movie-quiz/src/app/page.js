@@ -12,7 +12,6 @@ export default function Home() {
   const [round, setRound] = useState(0);
   const [currentPoster, setCurrentPoster] = useState("");
   const [winningChoice, setWinningChoice] = useState(0);
-  const [winningStruct, setWinningStruct] = useState(["", "", ""]);
 
 
   useEffect(() => {
@@ -102,12 +101,10 @@ export default function Home() {
 
         <div className={styles.playSound}>
         <button onClick={() => {    
-          console.log(data[winningChoice + (round * 4)])     
+          var soundtrackURL = (data[winningChoice + (round * 4)]).SoundtrackURL
+          console.log(soundtrackURL)  
         }}>Play Soundtrack</button>
       </div>
-
-
-
 
     </div>  
 
