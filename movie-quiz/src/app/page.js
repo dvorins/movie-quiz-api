@@ -9,10 +9,10 @@ export default function Home() {
   const [clickedIndex, setClickedIndex] = useState(null);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [videoId, setVideoId] = useState('PYI09PMNazw'); // YouTube video ID
-  const [countdown, setCountdown] = useState(15);
+  const [round, setRound] = useState(0);
   const [currentPoster, setCurrentPoster] = useState("");
   const [winningChoice, setWinningChoice] = useState(0);
+  const [winningStruct, setWinningStruct] = useState(["", "", ""]);
 
 
   useEffect(() => {
@@ -30,36 +30,12 @@ export default function Home() {
     // Increment nextIndex when loading the next set of movies
   };
 
-  const soundtrackFunction = (youtubeUrl) => {
-    console.log(youtubeUrl);
-    const iframe = document.getElementById('youtubePlayer');
-    const videoId = extractVideoId(youtubeUrl);
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
 
-    let countdownInterval = setInterval(() => {
-      setCountdown(prevCountdown => prevCountdown - 1);
-    }, 1000);
-
-
-    setTimeout(() => {
-      iframe.src = '';
-    }, 15000);
-  };
   
-  // Function to extract video ID from YouTube URL
-  const extractVideoId = (url) => {
-    // Example YouTube URLs: https://www.youtube.com/watch?v=PYI09PMNazw or https://youtu.be/PYI09PMNazw
-    const regex = /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-    const match = url.match(regex);
-  
-    return match && match[1];
-  };
-  
-
   const posterClicked = (index) => {
     const randomValue = Math.floor(Math.random() * 4); // Generates a random value between 0 and 3
     setCurrentPoster(`Clicked on Poster ${index}`);
-    if (index === winningChoice) {
+    if (index  === winningChoice) {
       console.log('win');
       setWinningChoice(randomValue);
       setCurrentScore(currentScore+1);
@@ -74,6 +50,7 @@ export default function Home() {
     console.log(`Clicked on Poster ${startIndex + index + 1}`);
     setClickedIndex(startIndex + index);
     incrementIndex();
+    setRound(round +1);
   };
 
   return (
@@ -102,7 +79,7 @@ export default function Home() {
         </div>
 
         <div>
-          <p>WINNING CHOICE IS {winningChoice}</p>
+          <p>WINNING CHOICE IS {winningChoice % 4}</p>
         </div>
 
 
@@ -124,26 +101,14 @@ export default function Home() {
 
 
         <div className={styles.playSound}>
-        <button onClick={() => {
-          setCountdown(15);
-          soundtrackFunction(data[winningChoice].SoundtrackURL);
+        <button onClick={() => {    
+          console.log(data[winningChoice + (round * 4)])     
         }}>Play Soundtrack</button>
       </div>
 
 
-          <div>
-            COUNTDOWN: {countdown} seconds
-          </div>
-      {/* YouTube video player */}
-      <iframe
-        id="youtubePlayer"
-        width="1"
-        height="1"
-        src=""
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
+
+
     </div>  
 
 
