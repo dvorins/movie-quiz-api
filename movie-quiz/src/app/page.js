@@ -86,39 +86,48 @@ export default function Home() {
   return (
     <div>
       <div className={styles.header}>
-        <h1>Movie Quiz</h1>
+        <h1>Movie Quiz </h1>
       </div>
-
+ 
+ 
       <div className={styles.nav}>
         <ul>
           <li><button onClick={() => loginFunction()}>Login</button></li>
           <li><button onClick={() => newgameFunction()}>New Game</button></li>
         </ul>
       </div>
-
+ 
+ 
       <div>
-       <ProgressBar
-         maxRange={15}
-       />
-     </div>
-
-      <div className={styles.main}>
-        <div className={styles.playerScores}>
+        <ProgressBar
+          maxRange={15}
+        />
+      </div>
+ 
+ 
+      <div className={styles.scores}>
+        <div className={styles.card}>
           <ul>
-            <li><p>Current Score: {currentScore} </p> <a href="#"> </a></li>
-            <li><p>High Score: {highScore} </p><a href="#"> </a></li>
+            <br></br>
+            <p>Current Score: {currentScore} </p>
+            <br></br>
+            <p>High Score: {highScore} </p>
+            {/* <li><p>WINNING CHOICE IS {winningChoice % 4}</p></li> */}
           </ul>
         </div>
-
+ 
+ 
+ 
+ 
+     
+      <div className={styles.posterCard}>
+ 
+ 
         <div>
           <p>{currentPoster}</p>
         </div>
-
-        <div>
-          <p>WINNING CHOICE IS {winningChoice % 4}</p>
-        </div>
-
-
+ 
+ 
         <div className={styles.moviePosters}>
           {/* Separate JavaScript objects for each poster */}
           <a href="#" onClick={() => posterClicked(0)}>
@@ -134,20 +143,18 @@ export default function Home() {
             <img src={clickedIndex === startIndex + 3 ? data[nextIndex]?.ImageURL : data[startIndex + 3]?.ImageURL} alt={`Poster ${startIndex + 4}`} />
           </a>
         </div>
-
-
+      </div>
+ 
         <div className={styles.playSound}>
-        <button onClick={() => {    
+        <button onClick={() => {   
           var soundtrackURL = (data[winningChoice + (round * 4)]).SoundtrackURL
-          console.log(soundtrackURL)  
+          console.log(soundtrackURL) 
         }}>Play Soundtrack</button>
       </div>
-
-    </div>  
-
-
-
  
+ 
+    </div> 
     </div>
   );
-}
+ }
+ 

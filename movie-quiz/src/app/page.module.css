@@ -3,24 +3,28 @@
   background-color: #001F3F;
   text-align: center;
   padding: 3.75vh;
-}
-
-.nav {
+ }
+ 
+ 
+ .nav {
   background-color: #DAA520;
   padding: 1.75vh;
-}
-
-.nav ul{
+ }
+ 
+ 
+ .nav ul{
   text-align: center;
-}
-
-.nav li {
+ }
+ 
+ 
+ .nav li {
   display: inline;
   margin: 3vh;
   padding: 2%;
-}
-
-.nav button {
+ }
+ 
+ 
+ .nav button {
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
@@ -30,21 +34,80 @@
   border-radius: 4px;
   transition: background-color 0.3s ease;
   font-weight: bold;
-}
-
-.main {
-  background-color: #A9A9A9;
+ }
+ 
+ 
+ .progressBar{
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #DAA520;
+  margin-left: auto;
+  margin-right: auto;
+ }
+ 
+ 
+ .timerText {
+  text-align: center;
+  background-color: transparent;
+ }
+ 
+ 
+ .scores {
+  background-color: white;
   height: 80vh;
   padding-top: 3vh;
-}
-
-.playerScores li {
+  text-align: center;
+ }
+ 
+ 
+ .card {
+  background-color: white;
+  outline-style:solid;
+  outline-color: black;
+  outline-width: 2px;
+  width: 10%;
+  height: 17%;
+  margin-left: auto;
+  margin-right: auto;
+ }
+ 
+ 
+ .posterCard {
+  background-color: white;
+  outline-style:solid;
+  outline-color: black;
+  outline-width: 5px;
+  width: 90%;
+  height: 50%;
+  margin-left: auto;
+  margin-right: auto;
+ }
+ 
+ 
+ .playerScores li {
   list-style: none;
   margin-left: 3vh;
   margin-bottom: 1.25vh;
-}
-
-.moviePosters {
+ }
+ 
+ 
+ .Timer {
+  text-align: center;
+ }
+ 
+ 
+ @keyframes roundtime {
+  to {
+    /* More performant than animating `width` */
+    transform: scaleX(0);
+  }
+ }
+ 
+ 
+ .moviePosters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -52,28 +115,32 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 5vh;
   margin-top: 3vh;
-}
-
-.moviePosters img {
-  width: 100%; 
-  height: auto; 
-}
-
-.moviePosters a {
+ }
+ 
+ 
+ .moviePosters img {
+  width: 100%;
+  height: auto;
+ }
+ 
+ 
+ .moviePosters a {
   display: inline-block;
   box-sizing: border-box;
   width: calc(20% - 5px);
   height: auto;
-}
-
-.playSound {
+ }
+ 
+ 
+ .playSound {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 4%;
-}
-
-.playSound button {
+ }
+ 
+ 
+ .playSound button {
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
@@ -83,10 +150,12 @@
   border-radius: 4px;
   transition: background-color 0.3s ease;
   font-weight: bold;
-}
-
-
-/* .description {
+ }
+ 
+ 
+ 
+ 
+ /* .description {
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
@@ -95,155 +164,179 @@
   width: 100%;
   z-index: 2;
   font-family: var(--font-mono);
-}
-
-.description a {
+ }
+ 
+ 
+ .description a {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-}
-
-.description p {
+ }
+ 
+ 
+ .description p {
   position: relative;
   margin: 0;
   padding: 1rem;
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
-}
-
-.code {
+ }
+ 
+ 
+ .code {
   font-weight: 700;
   font-family: var(--font-mono);
-}
-
-.grid {
+ }
+ 
+ 
+ .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(25%, auto));
   max-width: 100%;
   width: var(--max-width);
   text-align: center;
-}
-
-.card {
+ }
+ 
+ 
+ .card {
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
   text-align: center;
-}
-
-.card span {
+ }
+ 
+ 
+ .card span {
   display: inline-block;
   transition: transform 200ms;
-}
-
-.card h2 {
+ }
+ 
+ 
+ .card h2 {
   font-weight: 600;
   margin-bottom: 0.7rem;
-}
-
-.card p {
+ }
+ 
+ 
+ .card p {
   margin: 0;
   opacity: 0.6;
   font-size: 0.9rem;
   line-height: 1.5;
   max-width: 30ch;
-}
-
-.center {
+ }
+ 
+ 
+ .center {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   padding: 4rem 0;
-}
-
-.center::before {
+ }
+ 
+ 
+ .center::before {
   background: var(--secondary-glow);
   border-radius: 50%;
   width: 480px;
   height: 360px;
   margin-left: -400px;
-}
-
-.center::after {
+ }
+ 
+ 
+ .center::after {
   background: var(--primary-glow);
   width: 240px;
   height: 180px;
   z-index: -1;
-}
-
-.center::before,
-.center::after {
+ }
+ 
+ 
+ .center::before,
+ .center::after {
   content: '';
   left: 50%;
   position: absolute;
   filter: blur(45px);
   transform: translateZ(0);
-}
-
-.logo {
+ }
+ 
+ 
+ .logo {
   position: relative;
-}
-/* Enable hover only on non-touch devices */
-/* @media (hover: hover) and (pointer: fine) {
+ }
+ /* Enable hover only on non-touch devices */
+ /* @media (hover: hover) and (pointer: fine) {
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);
     border: 1px solid rgba(var(--card-border-rgb), 0.15);
   }
-
+ 
+ 
   .card:hover span {
     transform: translateX(4px);
   }
-}
-
-@media (prefers-reduced-motion) {
+ }
+ 
+ 
+ @media (prefers-reduced-motion) {
   .card:hover span {
     transform: none;
   }
-} */
-
-/* Mobile */
-@media (max-width: 700px) {
+ } */
+ 
+ 
+ /* Mobile */
+ @media (max-width: 700px) {
   .content {
     padding: 4rem;
   }
-
+ 
+ 
   .grid {
     grid-template-columns: 1fr;
     margin-bottom: 120px;
     max-width: 320px;
     text-align: center;
   }
-
+ 
+ 
   .card {
     padding: 1rem 2.5rem;
   }
-
+ 
+ 
   .card h2 {
     margin-bottom: 0.5rem;
   }
-
+ 
+ 
   .center {
     padding: 8rem 0 6rem;
   }
-
+ 
+ 
   .center::before {
     transform: none;
     height: 300px;
   }
-
+ 
+ 
   .description {
     font-size: 0.8rem;
   }
-
+ 
+ 
   .description a {
     padding: 1rem;
   }
-
+ 
+ 
   .description p,
   .description div {
     display: flex;
@@ -251,7 +344,8 @@
     position: fixed;
     width: 100%;
   }
-
+ 
+ 
   .description p {
     align-items: center;
     inset: 0 0 auto;
@@ -267,7 +361,8 @@
     background-clip: padding-box;
     backdrop-filter: blur(24px);
   }
-
+ 
+ 
   .description div {
     align-items: flex-end;
     pointer-events: none;
@@ -281,30 +376,34 @@
     );
     z-index: 1;
   }
-}
-
-/* Tablet and Smaller Desktop */
-@media (min-width: 701px) and (max-width: 1120px) {
+ }
+ 
+ 
+ /* Tablet and Smaller Desktop */
+ @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
     grid-template-columns: repeat(2, 50%);
   }
-}
-
-@media (prefers-color-scheme: dark) {
+ }
+ 
+ 
+ @media (prefers-color-scheme: dark) {
   .vercelLogo {
     filter: invert(1);
   }
-
+ 
+ 
   .logo {
     filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
   }
-}
-
-@keyframes rotate {
+ }
+ 
+ 
+ @keyframes rotate {
   from {
     transform: rotate(360deg);
   }
   to {
     transform: rotate(0deg);
   }
-}
+ } 
