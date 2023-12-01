@@ -2,10 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import styles from './page.module.css';
+import ReactPlayer from 'react-player';
+import YoutubeEmbed from "./soundtrack.js";
+
+
 
 function ProgressBar({maxRange}) {
   const [counter, setCounter] = useState(maxRange);
- 
  
   useEffect(() => {
     if (counter >= 0) {
@@ -30,7 +33,15 @@ function ProgressBar({maxRange}) {
       </div>
     </div>
   );
- } 
+ }
+
+function soundtrack() {
+    (<div className="App">
+      <h1>Youtube Embed</h1>
+      <YoutubeEmbed embedId="rokGy0huYEA" />
+    </div>);
+}
+
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -42,23 +53,24 @@ export default function Home() {
   const [currentPoster, setCurrentPoster] = useState("");
   const [winningChoice, setWinningChoice] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(15);
+  const [soundtrackURL, setSoundtrackURL] = useState("");
 
 
 
-  useEffect(() => {
-    fetch("http://localhost:5001/movies")
-      .then(res => res.json())
-      .then(data => {
-        setData(data);
-        console.log(data);
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:5001/movies")
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setData(data);
+  //       console.log(data);
+  //     })
+  //     .catch(error => console.error('Error fetching data:', error));
+  // }, []);
 
-  const incrementIndex = () => {
-    setStartIndex(prevIndex => (prevIndex + 4) % (data.length - 3));
-    // Increment nextIndex when loading the next set of movies
-  };
+  // const incrementIndex = () => {
+  //   setStartIndex(prevIndex => (prevIndex + 4) % (data.length - 3));
+  //   // Increment nextIndex when loading the next set of movies
+  // };
 
 
   
@@ -86,6 +98,9 @@ export default function Home() {
 
   return (
     <div>
+
+      <soundtrack />
+
       <div className={styles.header}>
         <h1>Movie Quiz </h1>
       </div>
@@ -104,6 +119,8 @@ export default function Home() {
           maxRange={timeRemaining}
         />
       </div>
+
+      
  
  
       <div className={styles.scores}>
@@ -116,18 +133,40 @@ export default function Home() {
             {/* <li><p>WINNING CHOICE IS {winningChoice % 4}</p></li> */}
           </ul>
         </div>
- 
- 
- 
- 
-     
+
+        <div className={styles.playSound}>
+        <button onClick={() => {
+            // Set the soundtrack URL before playing
+          setSoundtrackURL("https://www.youtube.com/watch?v=ghxzLw2wRis");
+          setTimeout(() => {
+            setSoundtrackURL(""); // Clear the soundtrack URL after 15 seconds
+          }, 15000); // 15 seconds in milliseconds
+          }}>Play Soundtrack</button>
+          
+          <br></br>
+
+          {soundtrackURL && (
+            <ReactPlayer
+              url={soundtrackURL}
+              playing={true} // Auto-play the soundtrack
+              controls={false} // Show player controls
+              // width={100}
+              // height={100}
+              light={"https://picsum.photos/id/237/200/300"}
+              onEnded={() => {
+                // Callback when the video ends
+                setSoundtrackURL(""); // Clear the soundtrack URL to stop playback
+              }}
+            />
+          )}
+      </div>
+
+
       <div className={styles.posterCard}>
- 
  
         {/* <div>
           <p>{currentPoster}</p>
         </div> */}
- 
  
         <div className={styles.moviePosters}>
           {/* Separate JavaScript objects for each poster */}
@@ -145,17 +184,11 @@ export default function Home() {
           </a>
         </div>
       </div>
- 
-        <div className={styles.playSound}>
-        <button onClick={() => {
-          var soundtrackURL = (data[winningChoice + (round * 4)]).SoundtrackURL
-          console.log(soundtrackURL) 
-        }}>Play Soundtrack</button>
+
       </div>
- 
- 
-    </div> 
+
     </div>
   );
  }
  
+{/* <iframe width="560" height="315" src="https://www.youtube.com/embed/ghxzLw2wRis?si=nmy2twG6LTckadLl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
