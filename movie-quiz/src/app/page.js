@@ -3,6 +3,35 @@ import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import styles from './page.module.css';
 
+function ProgressBar({maxRange}) {
+  const [counter, setCounter] = useState(maxRange);
+ 
+ 
+  useEffect(() => {
+    if (counter >= 0) {
+      setTimeout(() => setCounter(counter - 1), 1000);
+    }
+    if (counter === -1) {
+      alert("GAME OVER!!!")
+    }
+  },[counter])
+  return (
+    <div>
+      <div className={styles.progressBar}>
+          {/* <h1 className={styles.timerText}>{counter}</h1> */}
+        <div style={{
+          height: "100%",
+          width: `${100 - ((counter) * 100/15)}%`,
+          backgroundColor: "#001F3F",
+          borderRadius: 0,
+          transition:"width 1s linear"
+        }}>
+        </div>
+      </div>
+    </div>
+  );
+ } 
+
 export default function Home() {
   const [data, setData] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
@@ -12,6 +41,8 @@ export default function Home() {
   const [round, setRound] = useState(0);
   const [currentPoster, setCurrentPoster] = useState("");
   const [winningChoice, setWinningChoice] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(15);
+
 
 
   useEffect(() => {
@@ -64,6 +95,12 @@ export default function Home() {
           <li><button onClick={() => newgameFunction()}>New Game</button></li>
         </ul>
       </div>
+
+      <div>
+       <ProgressBar
+         maxRange={15}
+       />
+     </div>
 
       <div className={styles.main}>
         <div className={styles.playerScores}>
