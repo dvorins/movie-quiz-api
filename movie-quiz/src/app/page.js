@@ -12,7 +12,7 @@ function ProgressBar({maxRange}) {
       setTimeout(() => setCounter(counter - 1), 1000);
     }
     if (counter === -1) {
-      alert("GAME OVER!!!")
+      // alert("GAME OVER!!!")
     }
   },[counter])
   return (
@@ -65,6 +65,7 @@ export default function Home() {
   const posterClicked = (index) => {
     const randomValue = Math.floor(Math.random() * 4); // Generates a random value between 0 and 3
     setCurrentPoster(`Clicked on Poster ${index}`);
+    setTimeRemaining(15);
     if (index  === winningChoice) {
       console.log('win');
       setWinningChoice(randomValue);
@@ -100,7 +101,7 @@ export default function Home() {
  
       <div>
         <ProgressBar
-          maxRange={15}
+          maxRange={timeRemaining}
         />
       </div>
  
@@ -123,9 +124,9 @@ export default function Home() {
       <div className={styles.posterCard}>
  
  
-        <div>
+        {/* <div>
           <p>{currentPoster}</p>
-        </div>
+        </div> */}
  
  
         <div className={styles.moviePosters}>
@@ -146,7 +147,7 @@ export default function Home() {
       </div>
  
         <div className={styles.playSound}>
-        <button onClick={() => {   
+        <button onClick={() => {
           var soundtrackURL = (data[winningChoice + (round * 4)]).SoundtrackURL
           console.log(soundtrackURL) 
         }}>Play Soundtrack</button>
