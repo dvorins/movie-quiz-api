@@ -15,7 +15,7 @@ function ProgressBar({maxRange}) {
       setTimeout(() => setCounter(counter - 1), 1000);
     }
     if (counter === -1) {
-      // alert("GAME OVER!!!")
+      alert("GAME OVER!!!")
     }
   },[counter])
   return (
@@ -57,20 +57,20 @@ export default function Home() {
 
 
 
-  // useEffect(() => {
-  //   fetch("http://localhost:5001/movies")
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setData(data);
-  //       console.log(data);
-  //     })
-  //     .catch(error => console.error('Error fetching data:', error));
-  // }, []);
+  useEffect(() => {
+    fetch("http://localhost:5001/movies")
+      .then(res => res.json())
+      .then(data => {
+        setData(data);
+        console.log(data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
-  // const incrementIndex = () => {
-  //   setStartIndex(prevIndex => (prevIndex + 4) % (data.length - 3));
-  //   // Increment nextIndex when loading the next set of movies
-  // };
+  const incrementIndex = () => {
+    setStartIndex(prevIndex => (prevIndex + 4) % (data.length - 3));
+    // Increment nextIndex when loading the next set of movies
+  };
 
 
   
@@ -144,21 +144,29 @@ export default function Home() {
           }}>Play Soundtrack</button>
           
           <br></br>
+          
+        {/* <div className={styles.overlay}> */}
 
           {soundtrackURL && (
             <ReactPlayer
               url={soundtrackURL}
               playing={true} // Auto-play the soundtrack
-              controls={false} // Show player controls
-              // width={100}
-              // height={100}
-              light={"https://picsum.photos/id/237/200/300"}
+              controls={true} // Show player controls
+              width={0}
+              height={0}
+              // muted={true}
+              // autoPlay={true}
               onEnded={() => {
                 // Callback when the video ends
                 setSoundtrackURL(""); // Clear the soundtrack URL to stop playback
               }}
+              onStart={() => {
+                console.log('hello');
+              }}
             />
           )}
+        {/* </div> */}
+
       </div>
 
 

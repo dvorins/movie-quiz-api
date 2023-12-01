@@ -153,6 +153,18 @@
   align-items: center;
   padding-top: 4%;
  }
+
+ .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10%;
+  height: 10%;
+  background-color: white; 
+  opacity: 0.5; 
+  pointer-events: none;
+} 
+
  
  
  .playSound button {
