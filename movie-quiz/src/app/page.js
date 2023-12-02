@@ -15,7 +15,7 @@ function ProgressBar({maxRange}) {
       setTimeout(() => setCounter(counter - 1), 1000);
     }
     if (counter === -1) {
-      alert("GAME OVER!!!")
+      alert("GAME OVER!!!") 
     }
   },[counter])
   return (
