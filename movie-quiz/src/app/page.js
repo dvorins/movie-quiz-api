@@ -15,7 +15,7 @@ function ProgressBar({maxRange}) {
       setTimeout(() => setCounter(counter - 1), 1000);
     }
     if (counter === -1) {
-      alert("GAME OVER!!!") 
+      // alert("GAME OVER!!!") 
     }
   },[counter])
   return (
@@ -35,12 +35,25 @@ function ProgressBar({maxRange}) {
   );
  }
 
-function soundtrack() {
-    (<div className="App">
-      <h1>Youtube Embed</h1>
-      <YoutubeEmbed embedId="rokGy0huYEA" />
-    </div>);
-}
+
+ function ProgressBarTest({second}) {
+  console.log("Creating bar timer for " + second);
+  return (
+    <div>
+      <div className={styles.progressBar}>
+          {/* <h1 className={styles.timerText}>{counter}</h1> */}
+        <div style={{
+          height: "100%",
+          width: `${100 - ((second) * 100/15)}%`,
+          backgroundColor: "#001F3F",
+          borderRadius: 0,
+          // transition:"width 1s linear"
+        }}>
+        </div>
+      </div>
+    </div>
+  );
+ }
 
 
 export default function Home() {
@@ -50,6 +63,7 @@ export default function Home() {
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [round, setRound] = useState(0);
+  const [newRound, setNewRound] = useState(false);
   const [currentPoster, setCurrentPoster] = useState("");
   const [winningChoice, setWinningChoice] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(15);
@@ -73,11 +87,34 @@ export default function Home() {
   };
 
 
+  useEffect(() => {
+
+    if (newRound === true) {
+      setTimeRemaining(15)
+      setNewRound(false)
+    }
+
+    const intervalId = setInterval(() => {
+      if (timeRemaining > 0) {
+        setTimeout(() => setTimeRemaining(timeRemaining - 1), 1000);
+      }});
+
+      return () => clearInterval(intervalId);
+    }, [timeRemaining]);
+
+
+    
+  //   if (timeRemaining === -1) {
+  //     // alert("Game Over!")
+  //   }
+  // }, [timeRemaining])
+
+
   
   const posterClicked = (index) => {
     const randomValue = Math.floor(Math.random() * 4); // Generates a random value between 0 and 3
     setCurrentPoster(`Clicked on Poster ${index}`);
-    setTimeRemaining(15);
+    setNewRound(true);
     if (index  === winningChoice) {
       console.log('win');
       setWinningChoice(randomValue);
@@ -114,14 +151,12 @@ export default function Home() {
       </div>
  
  
-      <div>
+      {/* <div>
         <ProgressBar
           maxRange={timeRemaining}
         />
-      </div>
+      </div> */}
 
-      
- 
  
       <div className={styles.scores}>
         <div className={styles.card}>
@@ -193,6 +228,13 @@ export default function Home() {
         </div>
       </div>
 
+      </div>
+
+      <div>
+        {timeRemaining}
+        <ProgressBarTest
+        second={timeRemaining}
+        />
       </div>
 
     </div>
