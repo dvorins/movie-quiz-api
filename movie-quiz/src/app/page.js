@@ -3,37 +3,6 @@ import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import styles from './page.module.css';
 import ReactPlayer from 'react-player';
-import YoutubeEmbed from "./soundtrack.js";
-
-
-
-function ProgressBar({maxRange}) {
-  const [counter, setCounter] = useState(maxRange);
- 
-  useEffect(() => {
-    if (counter >= 0) {
-      setTimeout(() => setCounter(counter - 1), 1000);
-    }
-    if (counter === -1) {
-      // alert("GAME OVER!!!") 
-    }
-  },[counter])
-  return (
-    <div>
-      <div className={styles.progressBar}>
-          {/* <h1 className={styles.timerText}>{counter}</h1> */}
-        <div style={{
-          height: "100%",
-          width: `${100 - ((counter) * 100/15)}%`,
-          backgroundColor: "#001F3F",
-          borderRadius: 0,
-          transition:"width 1s linear"
-        }}>
-        </div>
-      </div>
-    </div>
-  );
- }
 
 
  function ProgressBarTest({second}) {
@@ -47,7 +16,7 @@ function ProgressBar({maxRange}) {
           width: `${100 - ((second) * 100/15)}%`,
           backgroundColor: "#001F3F",
           borderRadius: 0,
-          // transition:"width 1s linear"
+          transition:"width 1s linear"
         }}>
         </div>
       </div>
@@ -63,13 +32,10 @@ export default function Home() {
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [round, setRound] = useState(0);
-  const [newRound, setNewRound] = useState(false);
   const [currentPoster, setCurrentPoster] = useState("");
   const [winningChoice, setWinningChoice] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(15);
   const [soundtrackURL, setSoundtrackURL] = useState("");
-
-
+  const [timer, setTimer] = useState(15); // Initial timer value
 
   useEffect(() => {
     fetch("http://localhost:5001/movies")
@@ -87,34 +53,33 @@ export default function Home() {
   };
 
 
-  useEffect(() => {
-
-    if (newRound === true) {
-      setTimeRemaining(15)
-      setNewRound(false)
-    }
-
+  useEffect(() => { // For the bar timer and also controls the music to stop playing when the timer reaches 0, resets the timer when a poster is clicked
     const intervalId = setInterval(() => {
-      if (timeRemaining > 0) {
-        setTimeout(() => setTimeRemaining(timeRemaining - 1), 1000);
-      }});
-
-      return () => clearInterval(intervalId);
-    }, [timeRemaining]);
-
-
-    
-  //   if (timeRemaining === -1) {
-  //     // alert("Game Over!")
-  //   }
-  // }, [timeRemaining])
-
+      if (timer > 0) {
+        setTimer(prevTimer => prevTimer - 1);
+      } else {
+        clearInterval(intervalId);
+        setSoundtrackURL("");
+      }
+    }, 1000);
+ 
+    // Clean up the interval on component unmount or when timer resets
+    return () => {
+      clearInterval(intervalId);
+    };
+ 
+  }, [timer]);
+ 
+  const resetTimer = () => {
+    setTimer(15); // Reset the timer to 15 seconds
+  };
+ 
 
   
   const posterClicked = (index) => {
     const randomValue = Math.floor(Math.random() * 4); // Generates a random value between 0 and 3
     setCurrentPoster(`Clicked on Poster ${index}`);
-    setNewRound(true);
+    resetTimer();
     if (index  === winningChoice) {
       console.log('win');
       setWinningChoice(randomValue);
@@ -136,8 +101,6 @@ export default function Home() {
   return (
     <div>
 
-      <soundtrack />
-
       <div className={styles.header}>
         <h1>Movie Quiz </h1>
       </div>
@@ -149,15 +112,15 @@ export default function Home() {
           <li><button onClick={() => newgameFunction()}>New Game</button></li>
         </ul>
       </div>
- 
- 
-      {/* <div>
-        <ProgressBar
-          maxRange={timeRemaining}
-        />
-      </div> */}
 
  
+      <div>
+        <ProgressBarTest
+        second = {timer}
+        />
+      </div>
+
+
       <div className={styles.scores}>
         <div className={styles.card}>
           <ul>
@@ -180,8 +143,6 @@ export default function Home() {
           
           <br></br>
           
-        {/* <div className={styles.overlay}> */}
-
           {soundtrackURL && (
             <ReactPlayer
               url={soundtrackURL}
@@ -200,7 +161,6 @@ export default function Home() {
               }}
             />
           )}
-        {/* </div> */}
 
       </div>
 
@@ -230,15 +190,7 @@ export default function Home() {
 
       </div>
 
-      <div>
-        {timeRemaining}
-        <ProgressBarTest
-        second={timeRemaining}
-        />
-      </div>
-
     </div>
   );
  }
  
-{/* <iframe width="560" height="315" src="https://www.youtube.com/embed/ghxzLw2wRis?si=nmy2twG6LTckadLl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
