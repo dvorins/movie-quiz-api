@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import styles from './page.module.css';
 import ReactPlayer from 'react-player';
-import MovieData from './urls.json';
+
 
 
  function ProgressBarTest({second}) {
@@ -60,7 +60,7 @@ export default function Home() {
     fetch("http://localhost:5001/movies")
       .then(res => res.json())
       .then(data => {
-        setData(MovieData);
+        setData(data);
         console.log(data);
       })
       .catch(error => console.error('Error fetching data:', error));
@@ -154,7 +154,7 @@ export default function Home() {
         <div className={styles.playSound}>
         <button onClick={() => {
             // Set the soundtrack URL before playing
-          setSoundtrackURL("https://www.youtube.com/watch?v=ghxzLw2wRis");
+          setSoundtrackURL((data[winningChoice + (round * 4)]).SoundtrackURL);
           setTimeout(() => {
             setSoundtrackURL(""); // Clear the soundtrack URL after 15 seconds
           }, 15000); // 15 seconds in milliseconds
