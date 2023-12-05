@@ -3,25 +3,44 @@ import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import styles from './page.module.css';
 import ReactPlayer from 'react-player';
+import MovieData from './urls.json';
 
 
  function ProgressBarTest({second}) {
   console.log("Creating bar timer for " + second);
-  return (
-    <div>
-      <div className={styles.progressBar}>
-          {/* <h1 className={styles.timerText}>{counter}</h1> */}
-        <div style={{
-          height: "100%",
-          width: `${100 - ((second) * 100/15)}%`,
-          backgroundColor: "#001F3F",
-          borderRadius: 0,
-          transition:"width 1s linear"
-        }}>
+  if (second < 15) {
+    return (
+      <div>
+        <div className={styles.progressBar}>
+            {/* <h1 className={styles.timerText}>{counter}</h1> */}
+          <div style={{
+            height: "100%",
+            width: `${100 - ((second) * 100/15)}%`,
+            backgroundColor: "#001F3F",
+            borderRadius: 0,
+            transition:"width 1s linear"
+          }}>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div>
+        <div className={styles.progressBar}>
+            {/* <h1 className={styles.timerText}>{counter}</h1> */}
+          <div style={{
+            height: "100%",
+            width: `${100 - ((second) * 100/15)}%`,
+            backgroundColor: "#001F3F",
+            borderRadius: 0,
+            // transition:"width 1s linear"
+          }}>
+          </div>
+        </div>
+      </div>
+    );
+  }
  }
 
 
@@ -41,7 +60,7 @@ export default function Home() {
     fetch("http://localhost:5001/movies")
       .then(res => res.json())
       .then(data => {
-        setData(data);
+        setData(MovieData);
         console.log(data);
       })
       .catch(error => console.error('Error fetching data:', error));
