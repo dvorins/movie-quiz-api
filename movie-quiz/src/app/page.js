@@ -160,7 +160,7 @@ export default function Home() {
           }, 15000); // 15 seconds in milliseconds
           }}>Play Soundtrack</button>
           
-          <br></br>
+          <br></br> 
           
           {soundtrackURL && (
             <ReactPlayer
@@ -173,7 +173,7 @@ export default function Home() {
               // autoPlay={true}
               onEnded={() => {
                 // Callback when the video ends
-                setSoundtrackURL(""); // Clear the soundtrack URL to stop playback
+                setSoundtrackURL(""); // Cle111ar the soundtrack URL to stop playback
               }}
               onStart={() => {
                 console.log('hello');
