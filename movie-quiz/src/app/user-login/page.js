@@ -5,9 +5,10 @@ import Cookies from "js-cookie";
 export default function Page() {
 // redirect to main here
 
-
+   
     async function onSubmitRegister(formData) {
         'use server';
+        console.log(formData.get("username"));
         const res = await fetch('http://localhost:5001/register', {
             method: "POST",
             headers: {
@@ -19,7 +20,7 @@ export default function Page() {
         if (!res.ok) {
             throw new Error("Error " + res.status)
         } else {
-            
+            Cookies.set("currentUser", JSON.stringify(res))
             redirect('/');
         }
     }
@@ -37,6 +38,7 @@ export default function Page() {
         if (!res.ok) {
             throw new Error("Error " + res.status)
         } else {
+            Cookies.set("currentUser", JSON.stringify(res))
             redirect('/');
         }
         
@@ -49,7 +51,8 @@ export default function Page() {
             <input type="text" name="username" /><br />
             <label for="pword">Password</label><br />
             <input type="text" name="password" /><br />
-            <input type="submit" value="Submit" />
+            <button type="submit" onClick={onSubmitLogin}>Login</button>
+            <button formAction={onSubmitRegister}>Register</button>
         </form>
     );
 }
