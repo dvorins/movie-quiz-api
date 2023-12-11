@@ -29,9 +29,9 @@ def urls_call():
     for page_num in range(0, 5):
         coin = random.random()
         if (coin >= 0.5): # coin flip, greater than 0.5 = american movie, less than = japanese movie
-            response = requests.get(url=movie_url, params = {"region": "US", "language": "en-US", "sort_by": "popularity.desc", "page": page_num + 1}, headers=headers).json()
+            response = requests.get(url=movie_url, params = {"region": "US", "with_original_language": "en", "sort_by": "popularity.desc", "page": page_num + 1}, headers=headers).json()
         else:
-            response = requests.get(url=movie_url, params = {"region": "US", "language": "ja", "sort_by": "popularity.desc", "page": page_num + 1}, headers=headers).json()
+            response = requests.get(url=movie_url, params = {"region": "US", "with_original_language": "ja", "sort_by": "popularity.desc", "page": page_num + 1}, headers=headers).json()
         movies_list[page_num] = response
 
     numbers = random.sample(range(100), k=60) # indexes of random movies in movies_list WITHOUT replacement
@@ -43,8 +43,10 @@ def urls_call():
         movie_name = movies_list[page]["results"][index]["title"]
         images = requests.get(url=movie_image_url+str(movie_id)+"/images", headers=headers).json()
         image_url = "https://image.tmdb.org/t/p/original" + images["posters"][random.randint(0, len(images["posters"]) - 1)]["file_path"]
-        youtube_response = requests.get(url=youtube_url, params = {"part": "snippet", "maxResults": "5", "order": "relevance", "q": movie_name + "Soundtrack", "type": "video", "key": youtube_api_key}).json()
-        soundtrack_url = "https://www.youtube.com/watch?v=" + youtube_response["items"][random.randint(0)]["id"]["videoId"]
-        movies_links.append({"Name": movie_name, "ImageURL": image_url, "SoundtrackURL": soundtrack_url})
+        #youtube_response = requests.get(url=youtube_url, params = {"part": "snippet", "maxResults": "5", "order": "relevance", "q": movie_name + "Soundtrack", "type": "video", "key": youtube_api_key}).json()
+        #print(youtube_response)
+        #print("---------------")
+        #soundtrack_url = "https://www.youtube.com/watch?v=" + youtube_response["items"][0]["id"]["videoId"]
+        movies_links.append({"Name": movie_name, "ImageURL": image_url, "SoundtrackURL": "https://www.youtube.com/watch?v=ony539T074w&pp=ygUSa2luZyBnbnUgaGFrdWppdHN1"})
     
-    return movies_links.json()
+    return movies_links
