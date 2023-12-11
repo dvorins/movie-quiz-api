@@ -1,12 +1,13 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component} from 'react';
 import YouTube from 'react-youtube';
 import styles from './page.module.css';
 import ReactPlayer from 'react-player';
+import { BrowserRouter as Router, Routes, Route, Link, BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import Login from "../LogInFolder/login";
 
-
-
- function ProgressBarTest({second}) {
+function ProgressBarTest({second}) {
   console.log("Creating bar timer for " + second);
   if (second < 15) {
     return (
@@ -94,7 +95,6 @@ export default function Home() {
   };
  
 
-  
   const posterClicked = (index) => {
     const randomValue = Math.floor(Math.random() * 4); // Generates a random value between 0 and 3
     setCurrentPoster(`Clicked on Poster ${index}`);
@@ -118,98 +118,95 @@ export default function Home() {
   };
 
   return (
-    <div>
-
-      <div className={styles.header}>
-        <h1>Movie Quiz </h1>
-      </div>
- 
- 
-      <div className={styles.nav}>
-        <ul>
-          <li><button onClick={() => loginFunction()}>Login</button></li>
-          <li><button onClick={() => newgameFunction()}>New Game</button></li>
-        </ul>
-      </div>
-
- 
-      <div>
-        <ProgressBarTest
-        second = {timer}
-        />
-      </div>
-
-
-      <div className={styles.scores}>
-        <div className={styles.card}>
+    <BrowserRouter>
+      <Routes>
+      <Route path="Sign In" element={<Login/>}></Route>
+      <React.Fragment>
+        <div className={styles.header}>
+          <h1>Movie Quiz </h1>
+        </div>
+  
+        <div className={styles.nav}>
           <ul>
-            <br></br>
-            <p>Current Score: {currentScore} </p>
-            <br></br>
-            <p>High Score: {highScore} </p>
-            {/* <li><p>WINNING CHOICE IS {winningChoice % 4}</p></li> */}
+            <li><button onClick={() => Register()}>Sign In</button></li>
+            <li><button onClick={() => newgameFunction()}>New Game</button></li>
           </ul>
         </div>
 
-        <div className={styles.playSound}>
-        <button onClick={() => {
-            // Set the soundtrack URL before playing
-          setSoundtrackURL((data[winningChoice + (round * 4)]).SoundtrackURL);
-          setTimeout(() => {
-            setSoundtrackURL(""); // Clear the soundtrack URL after 15 seconds
-          }, 15000); // 15 seconds in milliseconds
-          }}>Play Soundtrack</button>
-          
-          <br></br> 
-          
-          {soundtrackURL && (
-            <ReactPlayer
-              url={soundtrackURL}
-              playing={true} // Auto-play the soundtrack
-              controls={true} // Show player controls
-              width={0}
-              height={0}
-              // muted={true}
-              // autoPlay={true}
-              onEnded={() => {
-                // Callback when the video ends
-                setSoundtrackURL(""); // Cle111ar the soundtrack URL to stop playback
-              }}
-              onStart={() => {
-                console.log('hello');
-              }}
-            />
-          )}
-
-      </div>
-
-
-      <div className={styles.posterCard}>
- 
-        {/* <div>
-          <p>{currentPoster}</p>
-        </div> */}
- 
-        <div className={styles.moviePosters}>
-          {/* Separate JavaScript objects for each poster */}
-          <a href="#" onClick={() => posterClicked(0)}>
-            <img src={clickedIndex === startIndex + 0 ? data[nextIndex]?.ImageURL : data[startIndex + 0]?.ImageURL} alt={`Poster ${startIndex + 1}`} />
-          </a>
-          <a href="#" onClick={() => posterClicked(1)}>
-            <img src={clickedIndex === startIndex + 1 ? data[nextIndex]?.ImageURL : data[startIndex + 1]?.ImageURL} alt={`Poster ${startIndex + 2}`} />
-          </a>
-          <a href="#" onClick={() => posterClicked(2)}>
-            <img src={clickedIndex === startIndex + 2 ? data[nextIndex]?.ImageURL : data[startIndex + 2]?.ImageURL} alt={`Poster ${startIndex + 3}`} />
-          </a>
-          <a href="#" onClick={() => posterClicked(3)}>
-            <img src={clickedIndex === startIndex + 3 ? data[nextIndex]?.ImageURL : data[startIndex + 3]?.ImageURL} alt={`Poster ${startIndex + 4}`} />
-          </a>
+        <div>
+          <ProgressBarTest
+          second = {timer}
+          />
         </div>
-      </div>
 
-      </div>
+        <div className={styles.scores}>
+          <div className={styles.card}>
+            <ul>
+              <br></br>
+              <p>Current Score: {currentScore} </p>
+              <br></br>
+              <p>High Score: {highScore} </p>
+              {/* <li><p>WINNING CHOICE IS {winningChoice % 4}</p></li> */}
+            </ul>
+          </div>
 
-    </div>
+          <div className={styles.playSound}>
+          <button onClick={() => {
+              // Set the soundtrack URL before playing
+            setSoundtrackURL((data[winningChoice + (round * 4)]).SoundtrackURL);
+            setTimeout(() => {
+              setSoundtrackURL(""); // Clear the soundtrack URL after 15 seconds
+            }, 15000); // 15 seconds in milliseconds
+            }}>Play Soundtrack</button>
+            
+            <br></br> 
+            
+            {soundtrackURL && (
+              <ReactPlayer
+                url={soundtrackURL}
+                playing={true} // Auto-play the soundtrack
+                controls={true} // Show player controls
+                width={0}
+                height={0}
+                // muted={true}
+                // autoPlay={true}
+                onEnded={() => {
+                  // Callback when the video ends
+                  setSoundtrackURL(""); // Cle111ar the soundtrack URL to stop playback
+                }}
+                onStart={() => {
+                  console.log('hello');
+                }}
+              />
+            )}
+
+        </div>
+
+        <div className={styles.posterCard}>
+  
+          {/* <div>
+            <p>{currentPoster}</p>
+          </div> */}
+  
+          <div className={styles.moviePosters}>
+            {/* Separate JavaScript objects for each poster */}
+            <a href="#" onClick={() => posterClicked(0)}>
+              <img src={clickedIndex === startIndex + 0 ? data[nextIndex]?.ImageURL : data[startIndex + 0]?.ImageURL} alt={`Poster ${startIndex + 1}`} />
+            </a>
+            <a href="#" onClick={() => posterClicked(1)}>
+              <img src={clickedIndex === startIndex + 1 ? data[nextIndex]?.ImageURL : data[startIndex + 1]?.ImageURL} alt={`Poster ${startIndex + 2}`} />
+            </a>
+            <a href="#" onClick={() => posterClicked(2)}>
+              <img src={clickedIndex === startIndex + 2 ? data[nextIndex]?.ImageURL : data[startIndex + 2]?.ImageURL} alt={`Poster ${startIndex + 3}`} />
+            </a>
+            <a href="#" onClick={() => posterClicked(3)}>
+              <img src={clickedIndex === startIndex + 3 ? data[nextIndex]?.ImageURL : data[startIndex + 3]?.ImageURL} alt={`Poster ${startIndex + 4}`} />
+            </a>
+          </div>
+        </div>
+        </div>
+        </React.Fragment>
+      </Routes>
+    </BrowserRouter>
   );
  }
- 
