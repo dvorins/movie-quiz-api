@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import styles from './page.module.css';
 import ReactPlayer from 'react-player';
-
-
+import Link from 'next/link'
 
  function ProgressBarTest({second}) {
   console.log("Creating bar timer for " + second);
@@ -56,6 +55,7 @@ export default function Home() {
   const [soundtrackURL, setSoundtrackURL] = useState("");
   const [timer, setTimer] = useState(15); // Initial timer value
 
+  
   useEffect(() => {
     fetch("http://localhost:5001/movies")
       .then(res => res.json())
@@ -65,7 +65,7 @@ export default function Home() {
       })
       .catch(error => console.error('Error fetching data:', error));
   }, []);
-
+  
   const incrementIndex = () => {
     setStartIndex(prevIndex => (prevIndex + 4) % (data.length - 3));
     // Increment nextIndex when loading the next set of movies
@@ -127,7 +127,7 @@ export default function Home() {
  
       <div className={styles.nav}>
         <ul>
-          <li><button onClick={() => loginFunction()}>Login</button></li>
+          <li><Link href="/user-login"><button>Login</button></Link></li>
           <li><button onClick={() => newgameFunction()}>New Game</button></li>
         </ul>
       </div>
