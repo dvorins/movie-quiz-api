@@ -4,3 +4,4 @@ flask-cors==4.0.0
 requests
 pyjwt
 Flask-PyMongo
+flask-login
