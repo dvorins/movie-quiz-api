@@ -29,7 +29,6 @@ db = LocalProxy(get_db)
 
 # adds user
 def add_user(username, password):
-    print("Reached db add_user")
     list = {'username' : username, 'password' : password}
     return db.users.insert_one(list)
 
@@ -39,5 +38,3 @@ def exists(username, password):
         return True
     return False
     
-
-
