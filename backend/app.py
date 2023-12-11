@@ -11,13 +11,20 @@ import os
 import uuid
 import json
 
+from flask import Flask
+from flask_cors import CORS
+from info import routes
+from account import login_routes
+
 app = Flask(__name__)
 app.register_blueprint(routes.urls)
 app.register_blueprint(login_routes.auth)
+
+# Enable CORS for all routes
 CORS(app)
-app.debug = True
-app._static_folder = os.path.abspath("movie-quiz-api/movie-quiz/")
+
+app.config['MONGO_URI'] = "mongodb://localhost:27017/accounts"
 
 if __name__ == '__main__':
-    app.config['MONGO_URI'] = "mongodb://localhost:27017/accounts"
-    app.run(host='localhost', port=5001)
+    app.run(host='localhost', port=5001, debug=True)
+
