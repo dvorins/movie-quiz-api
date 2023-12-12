@@ -4,14 +4,13 @@ import json
 
 urls = Blueprint('urls', __name__)
 
+api_results = links.urls_call()
 
 @urls.route('/movies')
 def grab_urls():
-    try:
-        with open("/Users/samdvorin/Desktop/code/411/movie-quiz-api/backend/info/urls.json", "r") as file:
-            data = json.load(file)
-        return jsonify(data)
+    try:         
+        return jsonify(api_results)
     except FileNotFoundError:
-        return jsonify({"error": "urls.json not found"}), 404
+        return jsonify({"error": "api call eror"}), 404
     except json.JSONDecodeError:
         return jsonify({"error": "Error decoding JSON from urls.json"}), 500
