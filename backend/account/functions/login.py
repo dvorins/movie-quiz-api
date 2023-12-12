@@ -13,7 +13,11 @@ def login_user_account(username, password):
             'username': username,
             'password': password
         }
-        return jwt.encode(payload, key)
+        jwt_key = jwt.encode(payload, key)
+        return {
+            "username": username,
+            "token": jwt_key
+        }
     
     return False
 
@@ -29,4 +33,8 @@ def register_user_account(username, password):
         'username': username,
         'password': password
     }
-    return jwt.encode(payload, key)
+    jwt_key = jwt.encode(payload, key)
+    return {
+            "username": username,
+            "token": jwt_key
+        }
