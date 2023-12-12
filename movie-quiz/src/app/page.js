@@ -7,14 +7,14 @@ import Link from 'next/link'
 
  function ProgressBarTest({second}) {
   console.log("Creating bar timer for " + second);
-  if (second < 15) {
+  if (second < 5) {
     return (
       <div>
         <div className={styles.progressBar}>
             {/* <h1 className={styles.timerText}>{counter}</h1> */}
           <div style={{
             height: "100%",
-            width: `${100 - ((second) * 100/15)}%`,
+            width: `${100 - ((second) * 100/5)}%`,
             backgroundColor: "#001F3F",
             borderRadius: 0,
             transition:"width 1s linear"
@@ -30,7 +30,7 @@ import Link from 'next/link'
             {/* <h1 className={styles.timerText}>{counter}</h1> */}
           <div style={{
             height: "100%",
-            width: `${100 - ((second) * 100/15)}%`,
+            width: `${100 - ((second) * 100/5)}%`,
             backgroundColor: "#001F3F",
             borderRadius: 0,
             // transition:"width 1s linear"
@@ -45,6 +45,9 @@ import Link from 'next/link'
 
 export default function Home() {
   const [data, setData] = useState([]);
+  const [youtubePlayer, setYoutubePlayer] = useState(null);
+  const [progressBarWidth, setProgressBarWidth] = useState(100);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const [clickedIndex, setClickedIndex] = useState(null);
   const [currentScore, setCurrentScore] = useState(0);
@@ -53,7 +56,8 @@ export default function Home() {
   const [currentPoster, setCurrentPoster] = useState("");
   const [winningChoice, setWinningChoice] = useState(0);
   const [soundtrackURL, setSoundtrackURL] = useState("");
-  const [timer, setTimer] = useState(15); // Initial timer value
+  const [timer, setTimer] = useState(5); // Initial timer value
+  const [isCorrectChoice, setIsCorrectChoice] = useState(null);
 
   
   useEffect(() => {
@@ -71,6 +75,10 @@ export default function Home() {
     // Increment nextIndex when loading the next set of movies
   };
 
+  const resetProgressBar = () => {
+    console.log('reset')
+    setProgressBarWidth(100);
+  };
 
   useEffect(() => { // For the bar timer and also controls the music to stop playing when the timer reaches 0, resets the timer when a poster is clicked
     const intervalId = setInterval(() => {
@@ -90,7 +98,7 @@ export default function Home() {
   }, [timer]);
  
   const resetTimer = () => {
-    setTimer(15); // Reset the timer to 15 seconds
+    setTimer(5); // Reset the timer to 15 seconds
   };
  
 
@@ -98,12 +106,12 @@ export default function Home() {
   const posterClicked = (index) => {
     const randomValue = Math.floor(Math.random() * 4); // Generates a random value between 0 and 3
     setCurrentPoster(`Clicked on Poster ${index}`);
-    resetTimer();
     if (index  === winningChoice) {
-      console.log('win');
+      setIsCorrectChoice(true);
       setWinningChoice(randomValue);
       setCurrentScore(currentScore+1);
     } else {
+      setIsCorrectChoice(false);
       setWinningChoice(randomValue);
       if(currentScore > highScore) {
         setHighScore(currentScore);
@@ -133,54 +141,74 @@ export default function Home() {
       </div>
 
  
-      <div>
-        <ProgressBarTest
-        second = {timer}
-        />
+<div>
+        <ProgressBarTest second={timer} width={progressBarWidth} />
       </div>
 
 
       <div className={styles.scores}>
-        <div className={styles.card}>
+        <div className={`${styles.card} ${isCorrectChoice === true ? styles.correct : isCorrectChoice === false ? styles.incorrect : ''}`}>
           <ul>
             <br></br>
             <p>Current Score: {currentScore} </p>
             <br></br>
             <p>High Score: {highScore} </p>
-            {/* <li><p>WINNING CHOICE IS {winningChoice % 4}</p></li> */}
           </ul>
         </div>
 
         <div className={styles.playSound}>
-        <button onClick={() => {
-            // Set the soundtrack URL before playing
-          setSoundtrackURL((data[winningChoice + (round * 4)]).SoundtrackURL);
-          setTimeout(() => {
-            setSoundtrackURL(""); // Clear the soundtrack URL after 15 seconds
-          }, 15000); // 15 seconds in milliseconds
-          }}>Play Soundtrack</button>
-          
-          <br></br> 
-          
-          {soundtrackURL && (
-            <ReactPlayer
-              url={soundtrackURL}
-              playing={true} // Auto-play the soundtrack
-              controls={true} // Show player controls
-              width={0}
-              height={0}
-              // muted={true}
-              // autoPlay={true}
-              onEnded={() => {
-                // Callback when the video ends
-                setSoundtrackURL(""); // Cle111ar the soundtrack URL to stop playback
-              }}
-              onStart={() => {
-                console.log('hello');
-              }}
-            />
-          )}
+        <button
+          onClick={() => {
+            setSoundtrackURL(data[winningChoice + round * 4]?.SoundtrackURL);
+            setIsPlaying(true);
+            resetTimer();
+            resetProgressBar();
 
+            const intervalId = setInterval(() => {
+              if (progressBarWidth > 0) {
+                setProgressBarWidth(prevWidth => prevWidth - (100 / 5));
+              }
+            }, 1000);
+
+            setTimeout(() => {
+              clearInterval(intervalId);
+              setIsPlaying(false);
+              setSoundtrackURL("");
+            }, 5000);
+          }}
+        >
+          Play Soundtrack
+        </button>
+
+        <br />
+
+        {soundtrackURL && (
+          <ReactPlayer
+            url={soundtrackURL}
+            playing={isPlaying}
+            controls={true}
+            width={0}
+            height={0}
+            onEnded={() => {
+              setIsPlaying(false);
+              setSoundtrackURL("");
+            }}
+          />
+        )}
+
+        {youtubePlayer && (
+          <YouTube
+            videoId="your-video-id"
+            opts={{
+              playerVars: {
+                start: 60, // Start the video at 1 minute (60 seconds)
+                end: 65, // Play the video for 5 seconds
+                autoplay: 1,
+              },
+            }}
+            onReady={event => setYoutubePlayer(event.target)}
+          />
+        )}
       </div>
 
 

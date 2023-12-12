@@ -38,5 +38,3 @@ def exists(username, password):
         return True
     return False
     
-
-
